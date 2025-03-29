@@ -10,7 +10,7 @@
             <input
               id="expression"
               :value="expression"
-              @input="$emit('update:expression', $event.target.value)"
+              @input="updateExpression"
               placeholder="Ej: x^2 + sin x"
               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-lg"
             />
@@ -24,7 +24,7 @@
               <select
                 id="mode"
                 :value="mode"
-                @change="$emit('update:mode', $event.target.value)"
+                @change="updateMode"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 <option value="derivar">Derivar</option>
@@ -38,7 +38,7 @@
               <select
                 id="variable"
                 :value="variable"
-                @change="$emit('update:variable', $event.target.value)"
+                @change="updateVariable"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 <option value="x">x</option>
@@ -86,5 +86,20 @@ const emit = defineEmits([
 
 const addToExpression = (key: string) => {
   emit('update:expression', props.expression + key)
+}
+
+const updateExpression = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  emit('update:expression', target.value)
+}
+
+const updateMode = (event: Event) => {
+  const target = event.target as HTMLSelectElement
+  emit('update:mode', target.value)
+}
+
+const updateVariable = (event: Event) => {
+  const target = event.target as HTMLSelectElement
+  emit('update:variable', target.value)
 }
 </script>
